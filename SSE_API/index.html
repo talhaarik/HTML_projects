@@ -1,0 +1,25 @@
+<!-- This is an HTML document with a JavaScript program that uses the EventSource API to receive updates from a server. The program establishes a connection with the server through an EventSource object and displays the updates using the div element with the id "result". If the user's browser does not support server-sent events, a message is displayed. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Getting server updates</h1>
+    <div id="result"></div>
+    <script>
+        if(typeof(EventSource) !== "undefined"){
+            var source = new EventSource("demo_sse.php");
+            source.onmessage = function(event){
+                document.getElementById("result").innerHTML += event.data + "<br>";
+            };
+        } else {
+            document.getElementById("result").innerHTML = "Sorry, your browser does not support server-sent events...";
+        }
+    </script>
+</body>
+</html>
